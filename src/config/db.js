@@ -5,8 +5,11 @@ const pool = new Pool({
     user: db.user,
     password: db.password,
     host: db.host,
-    port: db.port,
+    port: db.port || 5432,
     database: db.database,
+    ssl: {
+        rejectUnauthorized: false 
+    }
 });
 
 console.log('Conectando a la base de datos:', db);
@@ -19,13 +22,6 @@ pool.query('SELECT NOW()', (err, res) => {
     }
 });
 
-// pool.query('SELECT NOW()', (err, res) => {
-//     if(err){
-//         console.error('Error al conectar al base de datos', err);
-//     } else {
-//         console.log('Conexión exitosa a PostgreSQL:', res.rows[0].now);
-//     }
-// });
 
 function query (text, params){
     return pool.query(text, params);
