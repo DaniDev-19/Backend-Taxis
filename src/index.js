@@ -32,12 +32,15 @@ const users = readUsersFromFile();
 //     {id: 4, name: 'juan', edad: 23}
 // ];
 
+const corsOptions = { 
+    origin: process.env.ALLOWED_ORIGINS || "http://localhost:5173",
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH']
+};
 
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(cors({
-    origin: ['https://localhost:5173', 'http://localhost:3000']
-}));
+app.use(cors(corsOptions));
 
 app.use(helmet());
 
