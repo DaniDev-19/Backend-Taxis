@@ -2,12 +2,20 @@ const tallerService = require('../services/taller.services');
 
 
 const getAllTalleres = async (req, res, next) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
     try {
-        const response = await tallerService.AllTalleres(req.db);
+        const response = await tallerService.AllTalleres(req.db, { offset, limit });
         res.status(200).json({
             status: 'success',
             data: response.rows,
-            message: 'Talleres obtenidos exitosamente'
+            message: 'Talleres obtenidos exitosamente',
+                pagination: {
+                    page,
+                    limit,
+                    offset
+                }
         })
     } catch (error) {
         console.error('Error al obtener los talleres:', error);
