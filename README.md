@@ -2,6 +2,8 @@
 
 Este proyecto es una API y backend para la gestión de taxis, desarrollada en Node.js.
 
+![alt text](image.png)
+
 ## Estructura del proyecto
 
 ```
